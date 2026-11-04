@@ -1,0 +1,44 @@
+{
+  "app_name": "YouTube Enterprise Multi-Agent Studio",
+  "version": "3.9.0",
+  "build_date": "2026-11-04 18:03:46",
+  "github_repo": "phamngocthu661-lang/youtube-enterprise-studio",
+  "github_branch": "main",
+  "github_url": "https://github.com/phamngocthu661-lang/youtube-enterprise-studio",
+  "total_niche_recipes": 8,
+  "niche_keys_available": [
+    "KEY_JP_K1_MANGA",
+    "KEY_JP_KUCHIKOMI_60",
+    "KEY_US_MAFIA_MAID",
+    "KEY_US_HOMELESS_LEGACY",
+    "KEY_US_DAD_REVENGE",
+    "KEY_MX_DONA_FAMILIA",
+    "KEY_MX_HACIENDA_RURAL",
+    "KEY_US_MIDNIGHT_HORROR"
+  ],
+  "release_notes": "v3.9.0: Tích hợp Hệ thống Mã Key Kích Hoạt Bản Quyền (HMAC-SHA256), Kho 8+ Gói Key Công Thức Viết Kịch Bản & Edit Video Riêng Theo Ngách, Chu trình Nuôi Gmail & Hệ Sinh Thái Google 12 phút như người thật, và Cập Nhật Tự Động Từ Xa Qua GitHub (OTA Hot-Update).",
+  "hot_update_files": [
+    "youtube_enterprise_server.py",
+    "youtube_enterprise_desktop_app.py",
+    "engine/browser_cdp_manager.py",
+    "engine/youtube_persona_engine.py",
+    "engine/youtube_seo_uploader_engine.py",
+    "engine/ai_cognitive_brain.py",
+    "engine/ai_supervisor_watchdog.py",
+    "engine/channel_scanner_and_analytics.py",
+    "engine/k1_department_orchestrator.py",
+    "engine/license_and_updater_manager.py",
+    "config/niche_recipes_registry.json"
+  ],
+  "file_hashes": {
+    "youtube_enterprise_server.py": "7944d2b8920c6f00",
+    "youtube_enterprise_desktop_app.py": "dab2c9caa562599d",
+    "engine/browser_cdp_manager.py": "9bb453061b95ef4d",
+    "engine/youtube_persona_engine.py": "d4d2b6f4559b0d0e",
+    "engine/youtube_seo_uploader_engine.py": "d68cab8584a742b6",
+    "engine/ai_cognitive_brain.py": "0373a4fb9f4313eb",
+    "engine/ai_supervisor_watchdog.py": "d470f92124545312",
+    "engine/license_and_updater_manager.py": "91f1136bcf59d835",
+    "config/niche_recipes_registry.json": "1f95ef6bb1609895"
+  }
+}

@@ -1,0 +1,27 @@
+# Dữ liệu riêng tư của từng máy khách (Tuyệt đối không đẩy lên GitHub)
+PROFILES/
+CHANNELS_DATA/
+LOGS/
+BACKUPS/
+TRANSCRIPTS/
+EVOLUTION_MEMORY/
+channels_registry.json
+channels_registry.backup.json
+channels_registry.tmp*
+config/ai_model_config.json
+config/license_state.json
+config/admin_generated_keys_vault.json
+DANH_SACH_MA_KEY_KICH_HOAT_CHO_KHACH.md
+YouTube_Enterprise_Studio.exe
+*.tmp
+*.ota_tmp
+
+# Thư mục biên dịch & bộ nhớ đệm Python
+__pycache__/
+*.py[cod]
+*$py.class
+build/
+dist/
+*.spec
+.venv/
+venv/
