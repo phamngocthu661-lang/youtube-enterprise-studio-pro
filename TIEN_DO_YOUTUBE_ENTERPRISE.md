@@ -4,7 +4,7 @@
 > **Localhost Command Center:** `http://127.0.0.1:8077`
 > **Thư mục Dữ liệu Riêng Từng Kênh:** `D:\YOUTUBE_ENTERPRISE_STUDIO\CHANNELS_DATA\<CHANNEL_ID>\`
 > **Liên kết Kênh #01 (K1 Nhật Bản):** `D:\KEY NHẬT\AGENT` (`定年後の人生ラボ【漫画】`)
-> **Cập nhật lần cuối:** 2026-11-04 (`v3.8.2` — Nâng Cấp Thời Gian Nuôi Gmail & Hệ Sinh Thái Google Lên `~10–15 Phút / Tài Khoản` Như Người Thật 100%: Đọc Kỹ 2–3 Email + Đọc Báo Chí + Tìm Kiếm Google + Xem Bản Đồ Google Maps + Cập Nhật Bảng Tính Toán Lộ Trình Trong Ngày)
+> **Cập nhật lần cuối:** 2026-11-04 (`v3.9.0` — Hệ Thống Mã Key Kích Hoạt Bản Quyền `HMAC-SHA256` Cho Khách + Kiến Trúc Đa Ngách `Mỗi Key 1 Cách Viết Kịch Bản & Edit Video Riêng` + Đưa Ứng Dụng Lên GitHub & Cập Nhật Từ Xa `OTA Hot-Update` Không Cần Tải Lại App)
 
 ---
 
@@ -28,6 +28,25 @@ Mỗi kênh YouTube được vận hành độc lập như **1 Phòng Ban (Depar
 ---
 
 ## 2. Lịch sử Nâng cấp & Sửa lỗi (Changelog)
+
+### Phiên bản `v3.9.0` — Hệ Thống Mã Key Kích Hoạt Bản Quyền Cho Khách (`LicenseKeyManager`) + Kho Công Thức Đa Ngách "Mỗi Key 1 Cách Viết Kịch Bản & Edit Video Riêng" (`NicheRecipeRegistry`) + Cập Nhật Từ Xa Qua GitHub Không Cần Tải Lại Ứng Dụng (`OTAUpdaterManager`)
+- **[NÂNG CẤP 1] Hệ Thống Mã Key Kích Hoạt Bản Quyền Ký Số Bảo Mật `HMAC-SHA256` & Trình Tạo Mã Key Cho Khách (`LicenseKeyManager` — [`license_and_updater_manager.py`](file:///D:/YOUTUBE_ENTERPRISE_STUDIO/engine/license_and_updater_manager.py#L254-L485), [`DANH_SACH_MA_KEY_KICH_HOAT_CHO_KHACH.md`](file:///D:/YOUTUBE_ENTERPRISE_STUDIO/DANH_SACH_MA_KEY_KICH_HOAT_CHO_KHACH.md)):**
+  - Sinh và kiểm định chữ ký số bảo mật `HMAC-SHA256` theo cấu trúc `YTES-<TIER>-<MAX_CH>C-<EXP_YYYYMMDD>-<SCOPE>-<TAG>-<SIG8>` kết hợp định danh phần cứng `HWID`.
+  - Hỗ trợ phân quyền rõ ràng theo từng gói cấp cho khách:
+    - `MASTER`: Gói Chủ Phần Mềm (Mở khóa toàn bộ 10 Kênh + Toàn bộ Gói Key Ngách + Quyền tạo Key mới ngay trên App).
+    - `VIP10`: Gói Doanh Nghiệp VIP (`10 Kênh / 1 Máy`).
+    - `PRO5`: Gói Chuyên Nghiệp (`5 Kênh / 1 Máy`).
+    - `TRIAL3`: Gói Dùng Thử (`3 Kênh / 1 Máy`).
+  - Hỗ trợ cả **Mã Mở Khóa Từng Key Ngách Riêng (`ADDON-KEY-...`)** để sau này khách mua thêm ngách nào thì chỉ cần nhập mã Add-on đó là mở khóa ngay công thức viết kịch bản & edit video của ngách đó.
+- **[NÂNG CẤP 2] Kiến Trúc Mở Rộng "Mỗi Key 1 Cách Viết Kịch Bản & Edit Video Riêng" (`NicheRecipeRegistry` — [`license_and_updater_manager.py`](file:///D:/YOUTUBE_ENTERPRISE_STUDIO/engine/license_and_updater_manager.py#L38-L250), [`niche_recipes_registry.json`](file:///D:/YOUTUBE_ENTERPRISE_STUDIO/config/niche_recipes_registry.json)):**
+  - Thiết kế kho công thức đa ngách dạng mô-đun (`Pluggable Niche Recipes`), trong đó mỗi **Mã Key Ngách (`niche_key`)** định nghĩa độc lập:
+    1. **`script_formula` (Cách viết kịch bản riêng):** Phong cách kịch bản, độ dài ký tự mục tiêu, công thức DNA Tiêu đề, cấu trúc 5–7 phần (`narrative_arc`), cổng kiểm định QA và danh sách Skills liên kết.
+    2. **`video_edit_formula` (Cách dựng & edit video riêng):** Phong cách dựng hình, quy tắc Hook mở đầu (VD: *10 cảnh đầu 100% Veo3*), quy tắc hình ảnh thân bài (VD: *90% Seinen Manga nhịp 4s–10s*), hiệu ứng Camera/Pan-Zoom/Overlay và cấu hình giọng đọc TTS + FFmpeg GPU NVENC.
+  - Tích hợp sẵn **8 Gói Key Ngách đầu tiên** (`KEY_JP_K1_MANGA`, `KEY_JP_KUCHIKOMI_60`, `KEY_US_MAFIA_MAID`, `KEY_US_HOMELESS_LEGACY`, `KEY_US_DAD_REVENGE`, `KEY_MX_DONA_FAMILIA`, `KEY_MX_HACIENDA_RURAL`, `KEY_US_MIDNIGHT_HORROR`) và cho phép thêm không giới hạn các Key ngách mới ngay trên giao diện hoặc đẩy từ xa qua GitHub OTA.
+- **[NÂNG CẤP 3] Đưa Ứng Dụng Lên GitHub & Cập Nhật Tính Năng / Key Mới Từ Xa Không Cần Tải Lại Ứng Dụng (`OTAUpdaterManager` — [`license_and_updater_manager.py`](file:///D:/YOUTUBE_ENTERPRISE_STUDIO/engine/license_and_updater_manager.py#L488-L650), [`youtube_enterprise_desktop_app.py`](file:///D:/YOUTUBE_ENTERPRISE_STUDIO/youtube_enterprise_desktop_app.py#L16-L56)):**
+  - Kết nối kho GitHub OTA chính thức: `https://github.com/phamngocthu661-lang/youtube-enterprise-studio`.
+  - Nâng cấp `youtube_enterprise_desktop_app.py` ưu tiên nạp động (`_preload_external_ota_modules`) các file `.py` và `config/niche_recipes_registry.json` nằm ở thư mục ngoài đĩa cứng trước các mô-đun đóng gói trong `.exe`. Nhờ đó, khi khách bấm **「🔄 Tải & Cập Nhật Tính Năng Mới Ngay」**, phần mềm tải trực tiếp các mô-đun mới nhất từ GitHub về máy (kèm sao lưu tự động vào `BACKUPS/`) mà **khách không bao giờ phải tải lại file `.exe`** và **giữ nguyên 100% Profile Chrome + dữ liệu kênh**.
+  - Trang bị nút **「🚀 Đẩy Lên GitHub (Publish OTA)」** dành riêng cho Chủ phần mềm ngay trên giao diện để mỗi khi nâng cấp thêm tính năng hoặc thêm Key ngách mới là phát hành tự động cho toàn bộ máy khách.
 
 ### Phiên bản `v3.8.2` — Nâng Cấp Thời Gian Nuôi Gmail & Hệ Sinh Thái Google Lên `~10–15 Phút / Tài Khoản` (Trung Bình `12 Phút`) Như Người Thật 100%
 - **[NÂNG CẤP 1] Mở rộng Chế độ "Nuôi Gmail" (`warmup_mode == "GMAIL_ONLY"`) thành Chu trình Hệ Sinh Thái Google Đời Thực 4–5 Bước Ngẫu Nhiên ([`youtube_persona_engine.py`](file:///D:/YOUTUBE_ENTERPRISE_STUDIO/engine/youtube_persona_engine.py#L446-L469)):**
