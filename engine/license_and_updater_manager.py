@@ -28,7 +28,7 @@ VERSION_MANIFEST_PATH = os.path.join(BASE_DIR, "version_manifest.json")
 
 # Cấu hình Kho GitHub OTA chính thức để máy khách tự động cập nhật từ xa
 GITHUB_OWNER = "phamngocthu661-lang"
-GITHUB_REPO = "youtube-enterprise-studio"
+GITHUB_REPO = "youtube-enterprise-studio-pro"
 GITHUB_BRANCH = "main"
 GITHUB_RAW_BASE = f"https://raw.githubusercontent.com/{GITHUB_OWNER}/{GITHUB_REPO}/{GITHUB_BRANCH}"
 GITHUB_REPO_URL = f"https://github.com/{GITHUB_OWNER}/{GITHUB_REPO}"

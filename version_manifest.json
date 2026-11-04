@@ -1,10 +1,10 @@
 {
   "app_name": "YouTube Enterprise Multi-Agent Studio",
   "version": "3.9.0",
-  "build_date": "2026-11-04 18:03:46",
-  "github_repo": "phamngocthu661-lang/youtube-enterprise-studio",
+  "build_date": "2026-11-04 18:09:06",
+  "github_repo": "phamngocthu661-lang/youtube-enterprise-studio-pro",
   "github_branch": "main",
-  "github_url": "https://github.com/phamngocthu661-lang/youtube-enterprise-studio",
+  "github_url": "https://github.com/phamngocthu661-lang/youtube-enterprise-studio-pro",
   "total_niche_recipes": 8,
   "niche_keys_available": [
     "KEY_JP_K1_MANGA",
@@ -31,14 +31,14 @@
     "config/niche_recipes_registry.json"
   ],
   "file_hashes": {
-    "youtube_enterprise_server.py": "7944d2b8920c6f00",
+    "youtube_enterprise_server.py": "6fd6393f43e73dbb",
     "youtube_enterprise_desktop_app.py": "dab2c9caa562599d",
     "engine/browser_cdp_manager.py": "9bb453061b95ef4d",
     "engine/youtube_persona_engine.py": "d4d2b6f4559b0d0e",
     "engine/youtube_seo_uploader_engine.py": "d68cab8584a742b6",
     "engine/ai_cognitive_brain.py": "0373a4fb9f4313eb",
     "engine/ai_supervisor_watchdog.py": "d470f92124545312",
-    "engine/license_and_updater_manager.py": "91f1136bcf59d835",
+    "engine/license_and_updater_manager.py": "24d01767b95a511d",
     "config/niche_recipes_registry.json": "1f95ef6bb1609895"
   }
 }

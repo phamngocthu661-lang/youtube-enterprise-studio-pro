@@ -1,5 +1,5 @@
 # 📐 BẢNG TÍNH TOÁN LỘ TRÌNH THỜI GIAN TRONG NGÀY (TẠO VIDEO + ĐĂNG VIDEO + NUÔI KÊNH & GMAIL)
-> **Cập nhật tự động**: `2026-11-04 17:49:54` | **Quy mô**: `3 Kênh / 1 PC` | **Chế độ**: `Chia Đôi Màn Hình (Trái & Phải) + Sản Xuất Video Ngầm Song Song`
+> **Cập nhật tự động**: `2026-11-04 18:08:12` | **Quy mô**: `3 Kênh / 1 PC` | **Chế độ**: `Chia Đôi Màn Hình (Trái & Phải) + Sản Xuất Video Ngầm Song Song`
 
 ## 1. Định Mức Thời Gian Chuẩn Cho Từng Tác Vụ
 - **📧 Nuôi Gmail Chủ Động (6 Bước)**: `~12.0 phút / kênh` -> Chạy đôi 2 Gmail chia màn hình: **`24.0 phút / 3 kênh`**.

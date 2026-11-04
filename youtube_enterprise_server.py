@@ -660,7 +660,7 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
     <div class="modal-card" style="width:650px;">
       <h3>☁️ Cập Nhật Tính Năng & Gói Key Mới Từ Xa Qua GitHub (OTA Hot-Update)</h3>
       <div style="font-size:11.5px;color:#93c5fd;line-height:1.45;">
-        Hệ thống kết nối trực tiếp tới kho GitHub chính thức (<code>phamngocthu661-lang/youtube-enterprise-studio</code>). Khách hàng chỉ cần bấm <strong>「🔄 Cập Nhật Ngay」</strong> là ứng dụng tự tải các tính năng mới và các Gói Key Kịch bản/Edit mới về máy mà <strong>không cần tải lại bộ cài `.exe`</strong> và <strong>giữ nguyên 100% dữ liệu kênh/Profile</strong>!
+        Hệ thống kết nối trực tiếp tới kho GitHub chính thức (<code>phamngocthu661-lang/youtube-enterprise-studio-pro</code>). Khách hàng chỉ cần bấm <strong>「🔄 Cập Nhật Ngay」</strong> là ứng dụng tự tải các tính năng mới và các Gói Key Kịch bản/Edit mới về máy mà <strong>không cần tải lại bộ cài `.exe`</strong> và <strong>giữ nguyên 100% dữ liệu kênh/Profile</strong>!
       </div>
       <div class="vault-box" id="otaStatusResultBox" style="max-height:165px;font-size:11.5px;color:#34d399;">
         Bấm 「🔍 Kiểm Tra Phiên Bản Mới Trên GitHub」 để kiểm tra...
