@@ -394,6 +394,11 @@ class YouTubePersonaEngine:
         log_file = os.path.join(LOGS_DIR, f"{channel_id}.log")
         with open(log_file, "a", encoding="utf-8") as f:
             f.write(log_line + "\n")
+        try:
+            from engine.license_and_updater_manager import ChannelDailyActivityLedger
+            ChannelDailyActivityLedger.classify_and_record_log(channel_id, desk, message)
+        except Exception:
+            pass
         if self.state_callback:
             payload = {"last_log": log_line, "active_desk": desk}
             if extra:

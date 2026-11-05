@@ -1,266 +1,64 @@
 {
-  "schema_version": "3.9.0",
-  "updated_at": "2026-11-04 18:03:45",
+  "schema_version": "4.0.0-Alpha",
+  "security_note": "Full script & video edit formulas are AES-256 encrypted inside niche_recipes_encrypted.vault",
+  "updated_at": "2026-11-05 10:58:25",
   "total_niche_keys": 8,
-  "recipes": [
+  "niche_keys_index": [
     {
       "niche_key": "KEY_JP_K1_MANGA",
       "niche_code": "JP-K1",
       "niche_name": "🇯🇵 Key Nhật K1: Hưu Trí & Drama Gia Đình Seinen Manga (定年後の人生ラボ)",
       "language": "ja",
-      "market": "Nhật Bản (JP)",
-      "unlock_addon_code": "ADDON-KEY-JP-K1-MANGA",
-      "script_formula": {
-        "style_name": "K1 Seinen Manga Narrated Story (20–25 Phút)",
-        "target_length": "7.500 – 8.500 ký tự tiếng Nhật (Chuẩn 20–25 phút đọc)",
-        "title_dna": "【漫画】AGE + ACTION + CONSEQUENCE + LESSON (Ưu tiên: ハローワーク / シルバー人材センター / 60歳 再雇用 / 年金)",
-        "narrative_arc": "5 Nhịp: OLD BELIEF (Niềm tin cũ) ➔ COLLISION (Va chạm thực tế) ➔ EXPERIMENT (Thử nghiệm) ➔ NEW BELIEF (Nhận thức mới) ➔ WARM RESOLUTION (Kết ấm áp)",
-        "qa_gate": "Kiểm định độc lập >= 96/100 điểm, cấm trùng lặp mô-típ Kênh 2",
-        "linked_skills": [
-          "k1-title-planner",
-          "k1-script-writer",
-          "k1-script-auditor",
-          "k1-seo-packaging"
-        ]
-      },
-      "video_edit_formula": {
-        "edit_style_name": "Chuẩn Điện Ảnh Manga Nhật Bản (Veo3 Hook + Seinen Manga 4s–10s)",
-        "opening_hook_rule": "10 CẢNH ĐẦU TIÊN 100% LÀ VIDEO AI (VEO 3) chuyển động điện ảnh giữ chân khán giả 60s đầu",
-        "body_visual_rule": "Từ Cảnh 11 trở đi: 10% Video AI + 90% Ảnh tĩnh Seinen Manga (nhịp đổi ảnh 4s–10s, 50–60% góc B-roll giấu mặt giảm mỏi mắt)",
-        "camera_and_effects": "Kỹ thuật Shot-Reverse-Shot điện ảnh + Pan/Zoom nhẹ 1.08x + Phụ đề lớn rõ ràng cho khán giả Nhật 60–70+",
-        "audio_and_tts": "Giọng đọc Nhật trầm ấm tốc độ 1.0x + Nhạc nền Piano/Acoustic nhẹ -24dB + Render FFmpeg GPU NVENC chống tràn RAM",
-        "linked_skills": [
-          "San_Xuat_Video_Nhat_Ban",
-          "K1_Studio_Company"
-        ]
-      }
+      "market": "Nhật Bản (JP)"
     },
     {
       "niche_key": "KEY_JP_KUCHIKOMI_60",
       "niche_code": "JP-KCK",
       "niche_name": "🇯🇵 Key Nhật Kuchikomi: 30 Bình Luận Việc Làm & Tiền Tuổi Già (60代・定年口コミ)",
       "language": "ja",
-      "market": "Nhật Bản (JP)",
-      "unlock_addon_code": "ADDON-KEY-JP-KUCHIKOMI",
-      "script_formula": {
-        "style_name": "30 Độc Giả Chia Sẻ Thực Tế (7 Phần / 30 口コミ Độc Lập)",
-        "target_length": "18.000 – 24.000 ký tự tiếng Nhật (30 câu chuyện thực tế về việc làm & lương hưu tuổi 60+)",
-        "title_dna": "Con số cụ thể (Lương hưu / Thu nhập làm thêm) + 30인의 口コミ + Cảnh báo tuổi già",
-        "narrative_arc": "Mở đầu tổng quan ➔ 7 Phần chia theo nhóm ngành nghề (30 口コミ có tuổi, nghề cũ, thu nhập thật) ➔ Tổng kết lời khuyên",
-        "qa_gate": "Kiểm toán số học tiền tệ/lương hưu Nhật Bản chính xác 100%, 1 lần vá lỗi cố định",
-        "linked_skills": [
-          "viet-lai-tieu-de-japan-kuchikomi",
-          "viet-gian-y-japan-kuchikomi",
-          "viet-kich-ban-japan-kuchikomi",
-          "kiem-tra-kich-ban-japan-kuchikomi",
-          "viet-seo-japan-kuchikomi"
-        ]
-      },
-      "video_edit_formula": {
-        "edit_style_name": "Bảng Tin 2ch/Kuchikomi Nhật Bản + Thẻ Nhân Vật Biểu Cảm",
-        "opening_hook_rule": "Hiệu ứng lật thẻ bình luận nhanh 3 câu chuyện sốc nhất trong 15 giây đầu",
-        "body_visual_rule": "Khung nền giấy Nhật truyền thống + Avatar nhân vật 60+ đổi biểu cảm theo từng 口コミ + Highlight con số tiền lương màu vàng/đỏ",
-        "camera_and_effects": "Chuyển cảnh trượt thẻ (Card Slide) kèm âm thanh 'Pon!' đặc trưng kênh Kuchikomi Nhật",
-        "audio_and_tts": "Phân tách giọng dẫn chuyện và giọng đọc từng bình luận 口コミ (1.05x)",
-        "linked_skills": [
-          "viet-kich-ban-japan-kuchikomi"
-        ]
-      }
+      "market": "Nhật Bản (JP)"
     },
     {
       "niche_key": "KEY_US_MAFIA_MAID",
       "niche_code": "US-MAFIA",
       "niche_name": "🇺🇸 Key Mỹ (US): Mafia Boss × Người Hầu / Cô Gái Bị Coi Thường (Emotional Romance)",
       "language": "en",
-      "market": "Hoa Kỳ (US)",
-      "unlock_addon_code": "ADDON-KEY-US-MAFIA",
-      "script_formula": {
-        "style_name": "First-Person American Emotional Mafia Storytelling",
-        "target_length": "44.000 – 48.000 ký tự (7.400 – 7.650 từ tiếng Anh Mỹ chuẩn, Strict < 8.000 từ)",
-        "title_dna": "Bảo toàn 60% DNA từ khóa triệu view + Đột biến 40% biến số câu chuyện (Maid/Waitress/Nurse × Ruthless Don)",
-        "narrative_arc": "7 Parts: Bị sỉ nhục/bỏ rơi ➔ Cuộc gặp gỡ định mệnh với Ông Trùm ➔ Che giấu thân phận ➔ Cao trào vạch mặt kẻ phản bội ➔ Cái kết viên mãn",
-        "qa_gate": "Forensic Score nghiêm ngặt, 0 ký tự ngoặc vuông TTS, kiểm tra chính tả en-US",
-        "linked_skills": [
-          "viet-lai-tieu-de-mafia-nguoi-hau",
-          "viet-gian-y-nguoi-hau",
-          "viet-kich-ban-nguoi-hau-tu-gian-y",
-          "kiem-tra-kich-ban-nguoi-hau",
-          "viet-seo-nguoi-hau"
-        ]
-      },
-      "video_edit_formula": {
-        "edit_style_name": "Cinematic Dark Luxury Mansion (Ken Burns Pan/Zoom + Golden Dust)",
-        "opening_hook_rule": "8-Second Visual Power Hook mở màn bằng cảnh đối đầu cảm xúc tại biệt thự/nhà hàng sang trọng",
-        "body_visual_rule": "Bộ ảnh Photorealistic 16:9 đồng nhất Visual DNA nhân vật, nhịp đổi cảnh 7s–11s",
-        "camera_and_effects": "Hiệu ứng Ken Burns Zoom-In chậm vào ánh mắt + Lớp phủ bụi vàng (Golden Bokeh Overlay) + Vignette tối góc",
-        "audio_and_tts": "Giọng đọc nữ/nam trầm truyền cảm American English + Nhạc nền Cello/Piano trầm lắng",
-        "linked_skills": [
-          "Tao_Prompt_Anh",
-          "viet-seo-nguoi-hau"
-        ]
-      }
+      "market": "Hoa Kỳ (US)"
     },
     {
       "niche_key": "KEY_US_HOMELESS_LEGACY",
       "niche_code": "US-HOME",
       "niche_name": "🇺🇸 Key Mỹ (US): Homeless × Bất Động Sản Bỏ Hoang × Di Sản Ẩn Giấu",
       "language": "en",
-      "market": "Hoa Kỳ (US)",
-      "unlock_addon_code": "ADDON-KEY-US-HOMELESS",
-      "script_formula": {
-        "style_name": "7-Part Survival & Abandoned Property Restoration Saga",
-        "target_length": "70.000 – 80.000 ký tự tiếng Anh Mỹ (Long-form 80–95 phút)",
-        "title_dna": "Bị đuổi khỏi nhà tay trắng ➔ Mua/Thừa kế mảnh đất/căn nhà đổ nát ➔ Phát hiện giá trị triệu đô dưới lớp bụi",
-        "narrative_arc": "7 Phần: Early Retention Survival (90s đầu sinh tồn khắc nghiệt) ➔ Khôi phục từng bước bằng tay nghề ➔ Phát hiện bí mật lịch sử/pháp lý ➔ Đảo ngược vị thế",
-        "qa_gate": "Forensic Gate >= 98/100, sổ cái tài chính & quyền sở hữu đất đai khớp 100%",
-        "linked_skills": [
-          "viral-title-rewriter",
-          "viet-gian-y-homeless",
-          "viet-kich-ban-homeless",
-          "kiem-tra-kich-ban-homeless",
-          "seo-homeless-story"
-        ]
-      },
-      "video_edit_formula": {
-        "edit_style_name": "Documentary Realism (Contrast Cold Survival ➔ Warm Restoration)",
-        "opening_hook_rule": "Trailer 10–30 giây không lời thoại (Omni Multi-Shot) đối lập cảnh mưa lạnh ngoài đường và ánh đèn ấm trong ngôi nhà được phục dựng",
-        "body_visual_rule": "Nửa đầu dùng bảng màu lạnh xám (Desaturated Blue), nửa sau chuyển dần sang màu nắng vàng ấm (Warm Amber) khi căn nhà hoàn thiện",
-        "camera_and_effects": "Hiệu ứng mưa rơi/tuyết rơi nhẹ ở Part 1–2 + Chuyển cảnh Crossfade mượt 1.2s",
-        "audio_and_tts": "Giọng kể chuyện mộc mạc, chân thực + Tiếng mưa/tiếng búa gỗ nhẹ làm nền",
-        "linked_skills": [
-          "seo-homeless-story"
-        ]
-      }
+      "market": "Hoa Kỳ (US)"
     },
     {
       "niche_key": "KEY_US_DAD_REVENGE",
       "niche_code": "US-DAD",
       "niche_name": "🇺🇸 Key Mỹ (US): Ông Già Trả Đũa & Công Lý Tài Chính Gia Đình (DADUS)",
       "language": "en",
-      "market": "Hoa Kỳ (US)",
-      "unlock_addon_code": "ADDON-KEY-US-DAD",
-      "script_formula": {
-        "style_name": "7-Part American Father Quiet Legal & Financial Justice",
-        "target_length": "70.000 – 80.000 ký tự tiếng Anh Mỹ",
-        "title_dna": "Người cha già bị con cái coi thường/chiếm đoạt tại bữa tiệc gia đình ➔ Âm thầm rút quỹ tín thác/bất động sản",
-        "narrative_arc": "7 Phần: Sự phản bội công khai ➔ Thu thập chứng cứ pháp lý/ngân hàng Mỹ ➔ Khóa tài khoản/thu hồi ủy quyền ➔ Cao trào đối chất ➔ Bình yên tuổi già",
-        "qa_gate": "Kiểm định logic pháp luật/tài chính Mỹ (Trust Fund, Deed, POA) và chính tả en-US",
-        "linked_skills": [
-          "viet-tieu-de-ong-gia-us",
-          "viet-gian-y-ong-gia-us",
-          "viet-kich-ban-ong-gia-us",
-          "kiem-tra-kich-ban-ong-gia-us",
-          "seo-ong-gia-us"
-        ]
-      },
-      "video_edit_formula": {
-        "edit_style_name": "Photorealistic American Family Drama & Courtroom Tension",
-        "opening_hook_rule": "Cận cảnh biểu cảm điềm tĩnh của người cha già trước sự ngạo mạn của con cái + Zoom vào văn bản pháp lý",
-        "body_visual_rule": "Ảnh chụp chân thực chuẩn điện ảnh Mỹ (Photoreal 8K), nhịp cắt 6s–10s",
-        "camera_and_effects": "Slow Push-In vào khuôn mặt nhân vật chính + Phụ đề vàng viền đen rõ nét",
-        "audio_and_tts": "Giọng nam trầm lớn tuổi (Deep Senior American Male Voice) đĩnh đạc, uy quyền",
-        "linked_skills": [
-          "seo-ong-gia-us"
-        ]
-      }
+      "market": "Hoa Kỳ (US)"
     },
     {
       "niche_key": "KEY_MX_DONA_FAMILIA",
       "niche_code": "MX-DONA",
       "niche_name": "🇲🇽 Key Mexico: Bà Cô (Doña) Drama Gia Đình & Phản Bội (es-MX Chuẩn)",
       "language": "es",
-      "market": "Mexico (MX)",
-      "unlock_addon_code": "ADDON-KEY-MX-DONA",
-      "script_formula": {
-        "style_name": "7-Part Mexican Spanish Family Drama (Doña / Nuera / Consuegra)",
-        "target_length": "70.000 – 80.000 ký tự tiếng Tây Ban Nha Mexico (es-MX)",
-        "title_dna": "Mi nuera / Mis hijos me humillaron ➔ Không ngờ Bà Cô nắm giữ Escritura / Công ty gia đình tại Mexico",
-        "narrative_arc": "Tích hợp Canon Guard (chống trùng tên Doña, địa danh Colonia/CDMX, vật chứng trong 100 kịch bản) + 7 Phần cảm xúc gia đình Mexico",
-        "qa_gate": "Kiểm định 24 chiều (>=98 điểm) + Bàn #7 Verificador TTS bung 100% từ viết tắt (Sra., Lic., CDMX, IMSS, CFE, MXN) & lọc từ Tây Ban Nha châu Âu",
-        "linked_skills": [
-          "titulos-drama-familiar-mexico",
-          "canon-guard-drama-familiar-mexico",
-          "arquitectura-drama-familiar-mexico",
-          "escritor-y-reparacion-drama-familiar-mexico",
-          "auditor-forense-guion-familiar-mexico",
-          "seo-thumbnail-trailer-drama-familiar-mexico",
-          "verificador-tts-drama-familiar-mexico"
-        ]
-      },
-      "video_edit_formula": {
-        "edit_style_name": "Warm Latin Cinema (Telenovela Realism 16:9)",
-        "opening_hook_rule": "Teaser 10–30 giây cảm xúc mạnh tại bàn ăn gia đình Mexico hoặc văn phòng công chứng (Notaría Pública)",
-        "body_visual_rule": "Tông màu ấm đặc trưng Mexico, trang phục truyền thống/hiện đại lịch sự của Doña, nhịp đổi cảnh 6s–9s",
-        "camera_and_effects": "Ken Burns chuyển động mượt + Hiệu ứng ánh sáng ấm + Phụ đề tiếng Tây Ban Nha chuẩn dấu câu `¿...?` `¡...!`",
-        "audio_and_tts": "Giọng đọc tiếng Tây Ban Nha Mexico (es-MX) truyền cảm + Nhạc nền Guitar Acoustic Mexico nhẹ nhàng",
-        "linked_skills": [
-          "seo-thumbnail-trailer-drama-familiar-mexico"
-        ]
-      }
+      "market": "Mexico (MX)"
     },
     {
       "niche_key": "KEY_MX_HACIENDA_RURAL",
       "niche_code": "MX-RURAL",
       "niche_name": "🇲🇽 Key Mexico: Đồng Quê Cổ Điển & Điền Trang Hacienda (85–100 Phút)",
       "language": "es",
-      "market": "Mexico (MX)",
-      "unlock_addon_code": "ADDON-KEY-MX-RURAL",
-      "script_formula": {
-        "style_name": "7-Part Mexican Rural Hacienda & Inheritance Audio Drama",
-        "target_length": "70.000 – 82.000 ký tự (85 – 100 phút nghe)",
-        "title_dna": "Bí mật điền trang Hacienda cổ / Người làm vườn già thực chất là chủ nhân vùng đất Jalisco/Michoacán",
-        "narrative_arc": "7 Phần: Bối cảnh đồng quê Mexico giàu hình ảnh ➔ Xung đột đất đai/gia tộc ➔ Di chúc cổ & công lý",
-        "qa_gate": "Kiểm định từ vựng nông thôn Mexico chuẩn xác, 1 lần sửa lỗi duy nhất",
-        "linked_skills": [
-          "viet-lai-tieu-de-mexico",
-          "viet-gian-y-mexico",
-          "viet-kich-ban-mexico",
-          "kiem-tra-kich-ban-mexico",
-          "seo-mexico"
-        ]
-      },
-      "video_edit_formula": {
-        "edit_style_name": "Golden Hour Hacienda Panorama (Sepia & Warm Sunset)",
-        "opening_hook_rule": "Cảnh toàn điền trang Hacienda dưới ánh hoàng hôn Mexico kèm câu dẫn mở màn đầy bí ẩn",
-        "body_visual_rule": "Khung hình phong cảnh đồng quê rộng lớn xen kẽ cận cảnh nhân vật, nhịp đổi cảnh chậm 8s–12s phù hợp người nghe thư giãn",
-        "camera_and_effects": "Pan ngang chậm (Horizontal Panorama) + Bộ lọc màu nắng chiều ấm áp",
-        "audio_and_tts": "Giọng kể chuyện trầm ấm es-MX + Âm thanh gió đồng quê và guitar cổ điển",
-        "linked_skills": [
-          "seo-mexico"
-        ]
-      }
+      "market": "Mexico (MX)"
     },
     {
       "niche_key": "KEY_US_MIDNIGHT_HORROR",
       "niche_code": "US-HORROR",
       "niche_name": "🇺🇸 Key Mỹ (US): Truyện Kinh Dị Ca Đêm & Đường Trường (Midnight Horror Anthology)",
       "language": "en",
-      "market": "Hoa Kỳ (US)",
-      "unlock_addon_code": "ADDON-KEY-US-HORROR",
-      "script_formula": {
-        "style_name": "US Night Shift & Highway Horror Anthology (3–8 Stories)",
-        "target_length": "65.000 – 78.000 ký tự tiếng Anh Mỹ",
-        "title_dna": "I Worked the Graveyard Shift / 3 True Night Shift Stories That Made Me Quit Immediately",
-        "narrative_arc": "Đa dạng hóa 8 bối cảnh ca đêm Mỹ (Trạm xăng, Kiểm lâm, Bảo vệ bệnh viện, Tài xế xe tải đường dài) với luật nhân quả & bằng chứng thực tế",
-        "qa_gate": "Kiểm định chống trùng bối cảnh giữa các truyện trong cùng tuyển tập + chính tả en-US",
-        "linked_skills": [
-          "us-midnight-title-rewriter",
-          "us-midnight-outline-engine",
-          "us-midnight-script-writer",
-          "us-midnight-script-auditor",
-          "us-midnight-seo-publish"
-        ]
-      },
-      "video_edit_formula": {
-        "edit_style_name": "Atmospheric Night Rain & Low-Key VHS Thriller",
-        "opening_hook_rule": "Cảnh ánh đèn pha ô tô xuyên qua màn sương đêm hoặc hành lang trực đêm nhấp nháy đèn huỳnh quang",
-        "body_visual_rule": "Tông màu tối lạnh (Dark Teal & Shadow), nhịp đổi ảnh chậm 10s–15s tối ưu cho khán giả bật nghe ban đêm",
-        "camera_and_effects": "Hiệu ứng mưa rơi lên kính + hạt nhiễu phim nhẹ (Subtle Film Grain) + Zoom cực chậm",
-        "audio_and_tts": "Giọng đọc nam trầm khàn kể chuyện đêm khuya + Tiếng mưa đêm rả rích -22dB",
-        "linked_skills": [
-          "us-midnight-seo-publish"
-        ]
-      }
+      "market": "Hoa Kỳ (US)"
     }
   ]
 }

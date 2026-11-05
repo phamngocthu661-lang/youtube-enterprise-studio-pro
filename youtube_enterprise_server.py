@@ -44,6 +44,8 @@ from engine.ai_supervisor_watchdog import (
 from engine.license_and_updater_manager import (
     CURRENT_APP_VERSION,
     GITHUB_REPO_URL,
+    AlphaModeAndTopicSkillBridge,
+    ChannelDailyActivityLedger,
     LicenseKeyManager,
     NicheRecipeRegistry,
     OTAUpdaterManager,
@@ -658,9 +660,9 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
   <!-- MODAL 6: CẬP NHẬT TỪ XA QUA GITHUB OTA (KHÔNG CẦN TẢI LẠI ỨNG DỤNG) -->
   <div class="modal-overlay" id="otaUpdaterModal">
     <div class="modal-card" style="width:650px;">
-      <h3>☁️ Cập Nhật Tính Năng & Gói Key Mới Từ Xa Qua GitHub (OTA Hot-Update)</h3>
+      <h3>☁️ Cập Nhật Tính Năng & Gói Key Mới Từ Xa Qua GitHub (OTA + Tự Reset App)</h3>
       <div style="font-size:11.5px;color:#93c5fd;line-height:1.45;">
-        Hệ thống kết nối trực tiếp tới kho GitHub chính thức (<code>phamngocthu661-lang/youtube-enterprise-studio-pro</code>). Khách hàng chỉ cần bấm <strong>「🔄 Cập Nhật Ngay」</strong> là ứng dụng tự tải các tính năng mới và các Gói Key Kịch bản/Edit mới về máy mà <strong>không cần tải lại bộ cài `.exe`</strong> và <strong>giữ nguyên 100% dữ liệu kênh/Profile</strong>!
+        Hệ thống kết nối trực tiếp tới kho GitHub chính thức (<code>phamngocthu661-lang/youtube-enterprise-studio-pro</code>). Khách hàng chỉ cần bấm <strong>「🔄 Tải Cập Nhật & Tự Reset Ứng Dụng」</strong> là ứng dụng tự tải tính năng mới & Gói Key mới từ GitHub, <strong>tự động Reset lại ứng dụng</strong> ngay lập tức và <strong>giữ nguyên 100% dữ liệu/lịch sử của kênh</strong>!
       </div>
       <div class="vault-box" id="otaStatusResultBox" style="max-height:165px;font-size:11.5px;color:#34d399;">
         Bấm 「🔍 Kiểm Tra Phiên Bản Mới Trên GitHub」 để kiểm tra...
@@ -675,7 +677,7 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
       <div style="display:flex;justify-content:space-between;gap:8px;margin-top:8px;flex-wrap:wrap;">
         <div style="display:flex;gap:8px;">
           <button class="btn btn-outline" onclick="checkOtaUpdateNow()">🔍 Kiểm Tra Phiên Bản Mới Trên GitHub</button>
-          <button class="btn btn-green" onclick="applyOtaUpdateNow()">🔄 Tải & Cập Nhật Tính Năng Mới Ngay (Không Tải Lại App)</button>
+          <button class="btn btn-green" onclick="applyOtaUpdateNow()">🔄 Tải Cập Nhật & Tự Reset Ứng Dụng Ngay</button>
         </div>
         <button class="btn btn-outline" onclick="closeModals()">Đóng</button>
       </div>
@@ -850,10 +852,45 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
       <!-- PHẦN 4: AI GIÁM SÁT TIẾN ĐỘ LIÊN TỤC 24/7 & TỰ ĐỘNG KHẮC PHỤC LỖI (AI SUPERVISOR WATCHDOG) -->
       <div style="display:flex;flex-direction:column;gap:8px;">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
-          <span class="section-title">🛡️ PHẦN 4: AI GIÁM SÁT TIẾN ĐỘ & TỰ KHẮC PHỤC LỖI 24/7 (<span id="supervisorStatusBadge" style="color:#34d399;">ĐANG BẬT</span>)</span>
+          <span class="section-title">🛡️ PHẦN 4: AI GIÁM SÁT TIẾN ĐỘ & TỰ KHẮC PHỤC LỖI (<span id="supervisorStatusBadge" style="color:#fbbf24;">BẢN ALPHA — THỦ CÔNG</span>)</span>
           <button class="btn btn-outline" style="padding:3px 8px;font-size:11px;border-color:#38bdf8;color:#bae6fd;" onclick="runAiSupervisorCheckNow()">🛠️ Quét & Khắc Phục Lỗi Ngay</button>
         </div>
         <div class="vault-box" id="aiSupervisorWatchdogBox" style="max-height:225px;font-size:11.5px;">Đang tải trạng thái AI Supervisor Watchdog & Tài nguyên phần cứng...</div>
+      </div>
+    </div>
+
+    <!-- [v4.0-Alpha] PHẦN 5 & 6: LỊCH SỬ THAO TÁC HÔM NAY CỦA KÊNH + CHẾ ĐỘ BẢN ALPHA & CỔNG SKILL PHÂN TÍCH CHỦ ĐỀ TỰ TẠO KEY MỚI -->
+    <div class="channel-vault-card" style="grid-template-columns: 1.15fr 0.85fr;">
+      <!-- PHẦN 5: SỔ CÁI LỊCH SỬ THAO TÁC HÀNG NGÀY CỦA TỪNG KÊNH (BIẾT KÊNH ĐÓ HÔM NAY ĐÃ LÀM ĐƯỢC GÌ) -->
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
+          <span class="section-title">📋 PHẦN 5: LỊCH SỬ THAO TÁC HÔM NAY CỦA KÊNH (<span id="dailyHistoryBadge" style="color:#34d399;">Đang tải...</span>)</span>
+          <div style="display:flex;gap:6px;">
+            <button class="btn btn-outline" style="padding:3px 8px;font-size:11px;border-color:#10b981;color:#6ee7b7;" onclick="openDailyHistoryReportMd()">📄 Mở Báo Cáo Kênh Hôm Nay (.md)</button>
+            <button class="btn btn-outline" style="padding:3px 8px;font-size:11px;border-color:#f59e0b;color:#fde68a;" onclick="openSystemWorkflowDiagramMd()">🗺️ Xem Sơ Đồ Công Việc Hệ Thống (.md)</button>
+          </div>
+        </div>
+        <div id="dailyHistoryCountersBar" style="display:flex;gap:6px;flex-wrap:wrap;background:#090d16;padding:7px 10px;border-radius:8px;border:1px solid var(--border);font-size:11px;">
+          Đang tổng hợp số lượng thao tác kênh đã thực hiện hôm nay...
+        </div>
+        <div class="vault-box" id="dailyHistoryEventsBox" style="max-height:165px;font-size:11.5px;">
+          Đang tải dòng thời gian chi tiết các việc kênh đã làm hôm nay...
+        </div>
+      </div>
+
+      <!-- PHẦN 6: CHẾ ĐỘ BẢN ALPHA (TẮT TỰ ĐỘNG 24/24) & CỔNG CHỜ SKILL PHÂN TÍCH CHỦ ĐỀ -> TỰ TẠO KEY MỚI -->
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">
+          <span class="section-title">🛠️ PHẦN 6: CHẾ ĐỘ BẢN ALPHA & CỔNG SKILL TỰ TẠO KEY MỚI</span>
+          <button class="btn btn-outline" id="btnToggleAlpha247Mode" style="padding:3px 9px;font-size:11px;border-color:#fbbf24;color:#fde68a;" onclick="toggleAlpha247Mode()">🛠️ Đang ở Bản Alpha (Tắt Tự Chạy 24/24)</button>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center;background:#090d16;padding:6px 9px;border-radius:8px;border:1px solid var(--border);">
+          <input type="text" id="topicSkillPreviewInput" placeholder="Nhập chủ đề để thử Cổng Skill Phân Tích -> Tự Tạo Key Mới..." style="font-size:11px;padding:4px 8px;" />
+          <button class="btn btn-purple" style="padding:4px 9px;font-size:11px;flex-shrink:0;" onclick="previewTopicSkillPipeline()">🧠 Phân Tích & Tạo Key Mẫu</button>
+        </div>
+        <div class="vault-box" id="alphaAndTopicBridgeBox" style="max-height:175px;font-size:11.5px;">
+          Đang tải trạng thái Chế độ Alpha & Cổng chờ Skill Phân Tích Chủ Đề...
+        </div>
       </div>
     </div>
 
@@ -1219,9 +1256,77 @@ function renderMain(data) {
       <div>• <strong>Tài nguyên PC thời gian thực:</strong> RAM trống <strong style="color:#34d399;">${hw.ram_free_gb || 0} / ${hw.ram_total_gb || 0} GB</strong> (${hw.ram_used_pct || 0}%) | CPU: <strong>${hw.cpu_load_pct || 0}%</strong> | Trình duyệt mở: <strong>${hw.open_chrome_count || 0}</strong> cửa sổ</div>
       <div>• <strong>Đánh giá năng lực song song:</strong> Chia đôi 2 màn hình: <strong style="color:${hw.can_run_dual_split_screen ? '#34d399' : '#fbbf24'};">${hw.can_run_dual_split_screen ? '✅ ĐỦ TÀI NGUYÊN' : '⚠️ TẢI CAO'}</strong> | Vừa nuôi vừa tạo video ngầm: <strong style="color:${hw.can_run_background_video_prod ? '#34d399' : '#fbbf24'};">${hw.can_run_background_video_prod ? '✅ MƯỢT MÀ' : '⚠️ TẠM HOÃN'}</strong></div>
       ${jobLine}
-      <div>• <strong>AI Supervisor 24/7:</strong> Đã quét <strong>${sup.total_checks_run || 0}</strong> vòng (12s/lần) | Tự động khắc phục <strong style="color:#34d399;">${sup.total_issues_healed || 0}</strong> lỗi | Lần quét cuối: <code>${escapeHtml(sup.last_check_time || '...')}</code></div>
+      <div>• <strong>AI Supervisor:</strong> Đã quét <strong>${sup.total_checks_run || 0}</strong> vòng | Tự động khắc phục <strong style="color:#34d399;">${sup.total_issues_healed || 0}</strong> lỗi | Lần quét cuối: <code>${escapeHtml(sup.last_check_time || '...')}</code></div>
       <div style="margin-top:4px;padding-top:4px;border-top:1px solid rgba(255,255,255,0.08);color:#93c5fd;">${escapeHtml(sup.last_supervisor_thought || '')}</div>
       <div style="margin-top:4px;"><strong>Nhật ký AI Tự Khắc Phục Sự Cố (Self-Healing):</strong>${incList}</div>
+    `;
+  }
+
+  // [v4.0-Alpha] Render Sổ Cái Lịch Sử Thao Tác Hôm Nay Của Kênh (ChannelDailyActivityLedger)
+  const hist = data.daily_activity_history || {};
+  const ctrs = hist.summary_counters || {};
+  const histBadge = document.getElementById('dailyHistoryBadge');
+  if (histBadge) {
+    histBadge.innerText = `Ngày ${hist.date || '...'} • Đã thực hiện ${ctrs.total_actions_today || 0} thao tác`;
+  }
+  const ctrsBar = document.getElementById('dailyHistoryCountersBar');
+  if (ctrsBar) {
+    ctrsBar.innerHTML = `
+      <span>🔐 Xác thực ĐN: <strong style="color:#34d399;">${ctrs.login_verifications || 0}</strong></span> |
+      <span>📧 Nuôi Gmail: <strong style="color:#c084fc;">${ctrs.gmail_warmup_sessions || 0}</strong></span> |
+      <span>📰 Đọc Báo: <strong style="color:#38bdf8;">${ctrs.news_articles_read || 0}</strong></span> |
+      <span>🔍 Tìm Google: <strong style="color:#fcd34d;">${ctrs.google_searches || 0}</strong></span> |
+      <span>🗺️ Xem Maps: <strong style="color:#6ee7b7;">${ctrs.google_maps_explored || 0}</strong></span> |
+      <span>📱 Xem Shorts: <strong>${ctrs.youtube_shorts_watched || 0}</strong></span> |
+      <span>📺 Xem Video Dài: <strong style="color:#34d399;">${ctrs.youtube_long_videos_watched || 0}</strong></span> |
+      <span>💬 Bình Luận: <strong style="color:#f472b6;">${ctrs.youtube_comments_posted || 0}</strong></span> |
+      <span>📊 Quét Studio: <strong>${ctrs.studio_analytics_scans || 0}</strong></span> |
+      <span>🎬 Tạo/Đẩy Video: <strong style="color:#fbbf24;">${(ctrs.videos_produced_in_bg || 0) + (ctrs.videos_pre_uploaded_and_scheduled || 0)}</strong></span>
+    `;
+  }
+  const evBox = document.getElementById('dailyHistoryEventsBox');
+  if (evBox) {
+    const evs = (hist.events || []).slice().reverse();
+    if (evs.length === 0) {
+      evBox.innerHTML = '<div style="color:#94a3b8;">Hôm nay kênh này chưa có thao tác nào được ghi nhận. Khi bạn mở đăng nhập, nuôi Gmail, nuôi kênh, quét Studio hoặc đẩy video, mọi bước sẽ tự động lưu chi tiết kèm giờ phút tại đây!</div>';
+    } else {
+      evBox.innerHTML = evs.map(ev => `
+        <div style="padding:3px 0;border-bottom:1px dashed rgba(255,255,255,0.07);">
+          <strong style="color:#38bdf8;">[${escapeHtml(ev.time)}]</strong>
+          <span style="color:#fcd34d;font-weight:700;">[${escapeHtml(ev.action_type)}]</span>
+          <span>${escapeHtml(ev.summary)}</span>
+        </div>
+      `).join('');
+    }
+  }
+
+  // [v4.0-Alpha] Render Chế Độ Bản Alpha & Cổng Chờ Skill Phân Tích Chủ Đề -> Tự Tạo Key Mới
+  const alphaCfg = data.alpha_mode_config || {};
+  const is247 = Boolean(alphaCfg.run_24_7_autonomous_enabled);
+  const supBadge = document.getElementById('supervisorStatusBadge');
+  if (supBadge) {
+    supBadge.innerText = is247 ? 'CHẠY 24/24 TỰ ĐỘNG' : 'BẢN ALPHA — THỦ CÔNG';
+    supBadge.style.color = is247 ? '#34d399' : '#fbbf24';
+  }
+  const btnAlpha = document.getElementById('btnToggleAlpha247Mode');
+  if (btnAlpha) {
+    btnAlpha.innerText = is247
+      ? '🟢 Đang Bật Chạy 24/24 Tự Động (Bấm để về Bản Alpha)'
+      : '🛠️ Đang ở Bản Alpha — Can Thiệp Thủ Công (Tắt 24/24)';
+    btnAlpha.style.borderColor = is247 ? '#10b981' : '#fbbf24';
+    btnAlpha.style.color = is247 ? '#6ee7b7' : '#fde68a';
+  }
+  const bridgeBox = document.getElementById('alphaAndTopicBridgeBox');
+  if (bridgeBox && !window._customTopicPreviewDisplayed) {
+    const br = alphaCfg.future_topic_analyzer_skill_bridge || {};
+    const stepsHtml = (br.pipeline_steps || []).map(st => `<div style="margin-left:8px;color:#cbd5e1;">${escapeHtml(st)}</div>`).join('');
+    bridgeBox.innerHTML = `
+      <div>• <strong>Chế độ vận hành hiện tại:</strong> <strong style="color:${is247 ? '#34d399' : '#fbbf24'};">${escapeHtml(alphaCfg.current_stage_label || '')}</strong></div>
+      <div style="font-size:11px;color:#94a3b8;margin-top:2px;">${escapeHtml(alphaCfg.alpha_mode_note || '')}</div>
+      <div style="margin-top:5px;padding-top:5px;border-top:1px solid rgba(255,255,255,0.08);">
+        <strong style="color:#c084fc;">🧠 Cổng Chờ Bộ Skill Phân Tích Chủ Đề ➔ Tự Quyết Định & Tạo Key Mới (Sẵn sàng tích hợp):</strong>
+        ${stepsHtml}
+      </div>
     `;
   }
 }
@@ -1504,14 +1609,52 @@ async function checkOtaUpdateNow() {
 async function applyOtaUpdateNow() {
   const box = document.getElementById('otaStatusResultBox');
   box.style.color = '#fbbf24';
-  box.innerText = '⏳ Đang tải các tính năng mới & Gói Key Ngách mới trực tiếp từ GitHub OTA (Không ảnh hưởng dữ liệu kênh)...';
-  const out = await postAction('apply_ota_update');
+  box.innerText = '⏳ Đang tải các tính năng mới & Gói Key Ngách mới từ GitHub OTA và chuẩn bị Reset lại ứng dụng...';
+  const out = await postAction('apply_ota_update', { auto_restart: true });
   if (out && out.ok) {
     box.style.color = '#34d399';
-    box.innerText = out.message || '✅ Đã cập nhật từ xa thành công!';
+    box.innerText = out.message || '✅ Đã cập nhật từ xa thành công! Đang tự động Reset lại ứng dụng sau 2 giây...';
+    if (out.will_auto_restart) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 2400);
+    }
   } else {
     box.style.color = '#f87171';
     box.innerText = `❌ Lỗi cập nhật: ${(out && (out.error || (out.errors || []).join(', '))) || 'Không xác định'}`;
+  }
+}
+
+function openDailyHistoryReportMd() {
+  postAction('open_daily_history_report_md');
+}
+
+function openSystemWorkflowDiagramMd() {
+  postAction('open_system_workflow_diagram_md');
+}
+
+async function toggleAlpha247Mode() {
+  window._customTopicPreviewDisplayed = false;
+  await postAction('toggle_alpha_247_mode');
+}
+
+async function previewTopicSkillPipeline() {
+  const inp = document.getElementById('topicSkillPreviewInput');
+  const rawTopic = (inp ? inp.value.trim() : '') || 'Chủ đề mẫu: Cựu giám đốc 65 tuổi nghỉ hưu bị gia đình coi thường và cú lội ngược dòng';
+  const out = await postAction('preview_topic_skill_pipeline', { topic_input: rawTopic });
+  const bridgeBox = document.getElementById('alphaAndTopicBridgeBox');
+  if (out && out.ok && bridgeBox) {
+    window._customTopicPreviewDisplayed = true;
+    const stepsHtml = (out.steps_executed || []).map(st => `
+      <div style="padding:3px 0;border-bottom:1px dashed rgba(255,255,255,0.08);">
+        <strong style="color:#34d399;">[Bước ${st.step}] ${escapeHtml(st.name)}:</strong>
+        <span style="color:#e2e8f0;">${escapeHtml(st.output)}</span>
+      </div>
+    `).join('');
+    bridgeBox.innerHTML = `
+      <div style="color:#fcd34d;font-weight:700;margin-bottom:4px;">🧠 KẾT QUẢ MÔ PHỎNG BỘ SKILL PHÂN TÍCH CHỦ ĐỀ ➔ TỰ TẠO KEY MỚI (` + escapeHtml(out.proposed_new_niche_key) + `):</div>
+      ${stepsHtml}
+    `;
   }
 }
 
@@ -1766,6 +1909,8 @@ class EnterpriseDashboardHandler(BaseHTTPRequestHandler):
             sel_niche_key = (selected_ch.get("niche_recipe_key") if selected_ch else None) or default_niche_key
             sel_recipe = NicheRecipeRegistry.get_recipe_by_key(sel_niche_key)
             ota_manifest = OTAUpdaterManager.get_local_manifest()
+            daily_history = ChannelDailyActivityLedger.get_channel_daily_history(cid) if cid else {}
+            alpha_cfg = AlphaModeAndTopicSkillBridge.get_runtime_mode_config()
 
             self._send_json({
                 "ok": True,
@@ -1783,6 +1928,8 @@ class EnterpriseDashboardHandler(BaseHTTPRequestHandler):
                 "niche_recipes": all_recipes,
                 "selected_channel_niche_recipe": sel_recipe,
                 "ota_version_manifest": ota_manifest,
+                "daily_activity_history": daily_history,
+                "alpha_mode_config": alpha_cfg,
                 "ai_model_config": {
                     "provider": ai_cfg.get("provider", "AUTO"),
                     "has_gemini_key": bool(ai_cfg.get("gemini_api_key")),
@@ -2505,9 +2652,10 @@ class EnterpriseDashboardHandler(BaseHTTPRequestHandler):
             return
 
         if action == "apply_ota_update":
-            res = OTAUpdaterManager.apply_remote_ota_update()
+            auto_rst = bool(body.get("auto_restart", True))
+            res = OTAUpdaterManager.apply_remote_ota_update(auto_restart=auto_rst)
             if res.get("ok"):
-                PERSONA_ENGINE.emit_log(cid, 0, f"☁️ [GitHub OTA Hot-Update]: {res.get('message')}")
+                PERSONA_ENGINE.emit_log(cid, 0, f"☁️ [GitHub OTA Hot-Update + Auto-Reset]: {res.get('message')}")
             self._send_json(res)
             return
 
@@ -2519,21 +2667,69 @@ class EnterpriseDashboardHandler(BaseHTTPRequestHandler):
             self._send_json(res)
             return
 
+        if action == "open_daily_history_report_md":
+            hist = ChannelDailyActivityLedger.get_channel_daily_history(cid)
+            ChannelDailyActivityLedger._write_daily_markdown_report(cid, hist)
+            md_path = os.path.join(BASE_DIR, "CHANNELS_DATA", cid, "09_DAILY_ACTIVITY_HISTORY", "09_BAO_CAO_CONG_VIEC_HOM_NAY.md")
+            try:
+                os.startfile(md_path)
+            except Exception:
+                pass
+            self._send_json({"ok": True, "report_md_path": md_path})
+            return
+
+        if action == "open_system_workflow_diagram_md":
+            diagram_path = os.path.join(BASE_DIR, "SO_DO_CONG_VIEC_VA_CHUC_NANG_HE_THONG.md")
+            try:
+                if os.path.isfile(diagram_path):
+                    os.startfile(diagram_path)
+            except Exception:
+                pass
+            self._send_json({"ok": True, "diagram_md_path": diagram_path})
+            return
+
+        if action == "toggle_alpha_247_mode":
+            cfg = AlphaModeAndTopicSkillBridge.toggle_alpha_vs_247_mode()
+            is_247 = bool(cfg.get("run_24_7_autonomous_enabled"))
+            PERSONA_ENGINE.emit_log(
+                cid,
+                0,
+                f"🛠️ [Chế Độ Vận Hành]: Đã chuyển sang 『{cfg.get('current_stage_label')}』 "
+                f"({'Đã BẬT chạy tự động 24/24' if is_247 else 'Đang ở BẢN ALPHA — Tắt tự chạy 24/24 để bạn chủ động can thiệp thủ công'}).",
+            )
+            self._send_json({"ok": True, "alpha_mode_config": cfg})
+            return
+
+        if action == "preview_topic_skill_pipeline":
+            topic_inp = str(body.get("topic_input") or "").strip()
+            res = AlphaModeAndTopicSkillBridge.preview_future_topic_analyzer_pipeline(
+                topic_input=topic_inp,
+                language=ch.get("language", "ja"),
+            )
+            PERSONA_ENGINE.emit_log(
+                cid,
+                2,
+                f"🧠 [Cổng Chờ Skill Phân Tích Chủ Đề ➔ Tự Tạo Key Mới]: Đã mô phỏng 4 bước phân tích chủ đề 『{topic_inp[:55]}』 -> Đề xuất tạo Key `{res.get('proposed_new_niche_key')}`.",
+            )
+            self._send_json(res)
+            return
+
         self._send_json({"ok": False, "error": f"Unknown action: {action}"}, status=400)
 
 
 def autopilot_daemon_loop() -> None:
     """
-    [v3.7] Luồng nền kiểm tra lịch hẹn Autopilot mỗi 45 giây — TÁCH BIỆT 2 NHÁNH ĐỘC LẬP:
-    1. Nhánh `auto_pre_upload_enabled`:
-       - Vào lúc `pre_upload_trigger_time` (ví dụ `13:30` trưa), tự động kiểm tra thư mục Video Cấp Sẵn (`08_READY_VIDEOS_TO_UPLOAD` + `batch_queue_dir`),
-         ĐẨY VIDEO LÊN TRƯỚC và cài đặt giờ Public tự động vào `scheduled_publish_time` (ví dụ `20:00` tối) để đạt hiệu quả cao nhất!
-    2. Nhánh `auto_warmup_enabled`:
-       - Tự động chạy phiên Nuôi theo chế độ đã chọn (`FULL_OMNI`, `YOUTUBE_DEEP_ONLY`, hoặc `GMAIL_ONLY`).
-    3. Thực thi tuần tự từng kênh một (`max_concurrent_channels = 1`), và mọi tác vụ đều có Cổng Kiểm Tra Đăng Nhập Trước Khi Chạy!
+    [v3.7 / v4.0-Alpha] Luồng nền kiểm tra lịch hẹn Autopilot mỗi 45 giây — TÁCH BIỆT 2 NHÁNH ĐỘC LẬP:
+    - Ở chế độ Bản Alpha mặc định (`run_24_7_autonomous_enabled = False`), vòng lặp tự động 24/24 tạm nghỉ để người dùng chủ động can thiệp.
+    - Khi bật chế độ 24/24 (`run_24_7_autonomous_enabled = True`), tự động chạy Nhánh 1 (Đẩy Video Trước) và Nhánh 2 (Nuôi Kênh & Gmail).
     """
     while True:
         try:
+            alpha_cfg = AlphaModeAndTopicSkillBridge.get_runtime_mode_config()
+            if not alpha_cfg.get("run_24_7_autonomous_enabled", False):
+                time.sleep(45)
+                continue
+
             reg = load_registry()
             all_channels = reg.get("channels", [])
             if any(c.get("status") not in (None, "IDLE", "STOPPED", "LOGIN_REQUIRED") for c in all_channels):

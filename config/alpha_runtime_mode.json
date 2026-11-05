@@ -1,0 +1,7 @@
+{
+  "edition_stage": "ALPHA_INTERACTIVE",
+  "run_24_7_autonomous_enabled": false,
+  "require_human_supervision_note": "🛠️ Đang ở chế độ BẢN ALPHA (Kiểm soát & Can thiệp trực tiếp): Hệ thống chỉ thực thi khi bạn bấm lệnh, KHÔNG tự ý chạy ngầm 24/24.",
+  "topic_analyzer_skill_status": "READY_FOR_PLUGIN",
+  "updated_at": "2026-11-05 10:57:54"
+}

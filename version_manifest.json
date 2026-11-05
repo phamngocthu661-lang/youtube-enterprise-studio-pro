@@ -1,7 +1,7 @@
 {
   "app_name": "YouTube Enterprise Multi-Agent Studio",
-  "version": "3.9.0",
-  "build_date": "2026-11-04 18:09:06",
+  "version": "4.0.0-Alpha",
+  "build_date": "2026-11-05 11:00:47",
   "github_repo": "phamngocthu661-lang/youtube-enterprise-studio-pro",
   "github_branch": "main",
   "github_url": "https://github.com/phamngocthu661-lang/youtube-enterprise-studio-pro",
@@ -16,7 +16,7 @@
     "KEY_MX_HACIENDA_RURAL",
     "KEY_US_MIDNIGHT_HORROR"
   ],
-  "release_notes": "v3.9.0: Tích hợp Hệ thống Mã Key Kích Hoạt Bản Quyền (HMAC-SHA256), Kho 8+ Gói Key Công Thức Viết Kịch Bản & Edit Video Riêng Theo Ngách, Chu trình Nuôi Gmail & Hệ Sinh Thái Google 12 phút như người thật, và Cập Nhật Tự Động Từ Xa Qua GitHub (OTA Hot-Update).",
+  "release_notes": "Release v4.0.0-Alpha: Zero-Secret Anti-Reverse-Engineering + Auto-Reset OTA + Daily Channel Activity History + Alpha Mode & Topic Skill Bridge",
   "hot_update_files": [
     "youtube_enterprise_server.py",
     "youtube_enterprise_desktop_app.py",
@@ -25,20 +25,26 @@
     "engine/youtube_seo_uploader_engine.py",
     "engine/ai_cognitive_brain.py",
     "engine/ai_supervisor_watchdog.py",
-    "engine/channel_scanner_and_analytics.py",
-    "engine/k1_department_orchestrator.py",
+    "engine/channel_scanner_engine.py",
     "engine/license_and_updater_manager.py",
-    "config/niche_recipes_registry.json"
+    "config/remote_license_registry.json",
+    "config/niche_recipes_encrypted.vault",
+    "config/niche_recipes_registry.json",
+    "SO_DO_CONG_VIEC_VA_CHUC_NANG_HE_THONG.md"
   ],
   "file_hashes": {
-    "youtube_enterprise_server.py": "6fd6393f43e73dbb",
+    "youtube_enterprise_server.py": "6d7e8ec392b3f4ed",
     "youtube_enterprise_desktop_app.py": "dab2c9caa562599d",
     "engine/browser_cdp_manager.py": "9bb453061b95ef4d",
-    "engine/youtube_persona_engine.py": "d4d2b6f4559b0d0e",
+    "engine/youtube_persona_engine.py": "740bb0a4fae41477",
     "engine/youtube_seo_uploader_engine.py": "d68cab8584a742b6",
     "engine/ai_cognitive_brain.py": "0373a4fb9f4313eb",
-    "engine/ai_supervisor_watchdog.py": "d470f92124545312",
-    "engine/license_and_updater_manager.py": "24d01767b95a511d",
-    "config/niche_recipes_registry.json": "1f95ef6bb1609895"
+    "engine/ai_supervisor_watchdog.py": "17f57c15e61c9803",
+    "engine/channel_scanner_engine.py": "211436ce25a6adac",
+    "engine/license_and_updater_manager.py": "ac1dfead23d5af21",
+    "config/remote_license_registry.json": "1bdc0cf365838574",
+    "config/niche_recipes_encrypted.vault": "1ca884ac471c8115",
+    "config/niche_recipes_registry.json": "199cec5542937440",
+    "SO_DO_CONG_VIEC_VA_CHUC_NANG_HE_THONG.md": "d563004b588ddd52"
   }
 }

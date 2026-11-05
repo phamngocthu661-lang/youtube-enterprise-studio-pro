@@ -4,7 +4,9 @@
 > **Localhost Command Center:** `http://127.0.0.1:8077`
 > **Thư mục Dữ liệu Riêng Từng Kênh:** `D:\YOUTUBE_ENTERPRISE_STUDIO\CHANNELS_DATA\<CHANNEL_ID>\`
 > **Liên kết Kênh #01 (K1 Nhật Bản):** `D:\KEY NHẬT\AGENT` (`定年後の人生ラボ【漫画】`)
-> **Cập nhật lần cuối:** 2026-11-04 (`v3.9.0` — Hệ Thống Mã Key Kích Hoạt Bản Quyền `HMAC-SHA256` Cho Khách + Kiến Trúc Đa Ngách `Mỗi Key 1 Cách Viết Kịch Bản & Edit Video Riêng` + Đưa Ứng Dụng Lên GitHub & Cập Nhật Từ Xa `OTA Hot-Update` Không Cần Tải Lại App)
+> **Kho Cập Nhật Từ Xa (GitHub OTA):** `https://github.com/phamngocthu661-lang/youtube-enterprise-studio-pro`
+> **Thư mục Máy Chủ Tạo Key Riêng (Chỉ Chủ Phần Mềm Giữ):** `D:\ADMIN_MASTER_KEYGEN_PRIVATE\`
+> **Cập nhật lần cuối:** 2026-11-05 (`v4.0.0-Alpha` — Kiến Trúc Bảo Mật Chống Dịch Ngược `Zero-Secret` Không Lưu Khóa Trong Folder App & Không Cần Thuê Server + Cập Nhật Từ Xa Qua GitHub Tự Động Reset App + Sổ Cái Lịch Sử Thao Tác Hàng Ngày Của Kênh `ChannelDailyActivityLedger` + Chế Độ Bản Alpha Mặc Định & Cổng Chờ Bộ Skill Phân Tích Chủ Đề Tự Tạo Key Mới)
 
 ---
 
@@ -28,6 +30,23 @@ Mỗi kênh YouTube được vận hành độc lập như **1 Phòng Ban (Depar
 ---
 
 ## 2. Lịch sử Nâng cấp & Sửa lỗi (Changelog)
+
+### Phiên bản `v4.0.0-Alpha` — Kiến Trúc Bảo Mật Chống Dịch Ngược `Zero-Secret` (Tuyệt Đối Không Lưu Khóa Trong Folder Ứng Dụng & Không Cần Thuê Server 24/24) + Cập Nhật Từ Xa Qua GitHub Tự Động Reset App + Sổ Cái Lịch Sử Thao Tác Hàng Ngày Của Kênh (`ChannelDailyActivityLedger`) + Chế Độ Bản Alpha & Cổng Chờ Bộ Skill Phân Tích Chủ Đề Tự Tạo Key Mới (`AlphaModeAndTopicSkillBridge`)
+- **[NÂNG CẤP 1] Bảo Mật Đa Lớp Chống Dịch Ngược Code & Tuyệt Đối Không Để Mã Khóa Trong Folder Ứng Dụng (`CryptoVaultEngine` & `Zero-Secret Registry` — [`license_and_updater_manager.py`](file:///D:/YOUTUBE_ENTERPRISE_STUDIO/engine/license_and_updater_manager.py#L45-L470)):**
+  - **Loại bỏ 100% Khóa Bí Mật (`Private Secret`) khỏi thư mục `D:\YOUTUBE_ENTERPRISE_STUDIO`:** Toàn bộ khóa gốc dùng để sinh Key (`owner_master_secret.json`) và danh sách Key gốc (`admin_generated_keys_vault.json`, `DANH_SACH_MA_KEY_KICH_HOAT_CHO_KHACH.md`) được di chuyển hoàn toàn ra thư mục riêng của Chủ phần mềm tại **`D:\ADMIN_MASTER_KEYGEN_PRIVATE\`** (và loại trừ tuyệt đối trong `.gitignore`).
+  - **Xác thực Offline + GitHub bằng Băm Một Chiều `SHA-256` (`config/remote_license_registry.json`):** Trong thư mục ứng dụng khách và trên GitHub chỉ lưu **mã băm một chiều `SHA-256` (`key_sha256`)** của các Key hợp lệ cùng `encrypted_vault_unlock_token`. Kể cả khi kẻ gian dịch ngược toàn bộ mã nguồn Python/EXE cũng không thể biết mã Key thật là gì và không thể tự sinh Key giả.
+  - **Mã hóa Kho Công Thức Kịch Bản & Edit Video (`config/niche_recipes_encrypted.vault`):** Toàn bộ công thức viết kịch bản và cách dựng video của các Key ngách được mã hóa bằng thuật toán dòng **`PBKDF2-HMAC-SHA256 (35.000 vòng) + CTR Stream Cipher + HMAC Authentication`** và chỉ giải mã trực tiếp trên RAM khi có Mã Key hợp lệ. Nhờ đó, dù kẻ crack có sửa code `if is_activated: return True` thì khối dữ liệu công thức bên trong `.vault` vẫn không thể giải mã nếu không có Key thật.
+- **[NÂNG CẤP 2] Cập Nhật Từ Xa Qua GitHub OTA & Tự Động Reset Ứng Dụng (`OTAUpdaterManager.apply_remote_ota_update(auto_restart=True)` — [`license_and_updater_manager.py`](file:///D:/YOUTUBE_ENTERPRISE_STUDIO/engine/license_and_updater_manager.py#L700-L885), [`youtube_enterprise_server.py`](file:///D:/YOUTUBE_ENTERPRISE_STUDIO/youtube_enterprise_server.py#L1609-L1630)):**
+  - Khi Chủ phần mềm sửa code hoặc tạo Key ngách mới và bấm **「🚀 Đẩy Lên GitHub (Publish OTA)」**, hệ thống tự động đóng gói `version_manifest.json`, mã hóa lại `niche_recipes_encrypted.vault` và đẩy (`git push`) lên kho `https://github.com/phamngocthu661-lang/youtube-enterprise-studio-pro`.
+  - Khi máy khách bấm **「🔄 Tải Cập Nhật & Tự Reset Ứng Dụng Ngay」**, ứng dụng tự động tải các mô-đun mới về máy, sao lưu bản cũ vào `BACKUPS/`, sau đó gọi `trigger_self_restart_after_delay(1.5s)` để **tự động khởi động lại tiến trình ứng dụng** và tự làm mới giao diện sau `2.4 giây`.
+- **[NÂNG CẤP 3] Lưu Lịch Sử Thao Tác Hàng Ngày Của Từng Kênh Để Biết Hôm Nay Kênh Đã Làm Được Gì (`ChannelDailyActivityLedger` — [`license_and_updater_manager.py`](file:///D:/YOUTUBE_ENTERPRISE_STUDIO/engine/license_and_updater_manager.py#L475-L625), [`youtube_persona_engine.py`](file:///D:/YOUTUBE_ENTERPRISE_STUDIO/engine/youtube_persona_engine.py#L391-L405)):**
+  - Tự động móc nối trực tiếp vào `YouTubePersonaEngine.emit_log` để phân loại và ghi nhận **100% thao tác kênh thực hiện trong ngày** theo từng mốc giờ:phút:giây vào:
+    - File JSON: `CHANNELS_DATA/<CHANNEL_ID>/09_DAILY_ACTIVITY_HISTORY/history_YYYY-MM-DD.json`
+    - Báo cáo Markdown: `CHANNELS_DATA/<CHANNEL_ID>/09_DAILY_ACTIVITY_HISTORY/09_BAO_CAO_CONG_VIEC_HOM_NAY.md`
+  - Thống kê rõ ràng 11 bộ đếm công việc trong ngày trên **PHẦN 5** của giao diện: `Xác thực Đăng nhập`, `Phiên nuôi Gmail`, `Bài báo đã đọc`, `Lượt tìm kiếm Google`, `Lượt xem Google Maps`, `Video Shorts đã xem`, `Video dài đã xem`, `Bình luận đã đăng`, `Lượt quét Studio`, `Video sản xuất ngầm`, `Video đẩy lên trước & hẹn giờ`.
+- **[NÂNG CẤP 4] Chế Độ Bản Alpha Mặc Định (Tắt Tự Chạy 24/24 Để Dễ Can Thiệp) & Cổng Chờ Bộ Skill Phân Tích Chủ Đề Tự Tạo Key Mới (`AlphaModeAndTopicSkillBridge` — [`license_and_updater_manager.py`](file:///D:/YOUTUBE_ENTERPRISE_STUDIO/engine/license_and_updater_manager.py#L628-L700), [`SO_DO_CONG_VIEC_VA_CHUC_NANG_HE_THONG.md`](file:///D:/YOUTUBE_ENTERPRISE_STUDIO/SO_DO_CONG_VIEC_VA_CHUC_NANG_HE_THONG.md)):**
+  - Mặc định khởi động ở **Chế độ Bản Alpha (`run_24_7_autonomous_enabled = False`)**: Tạm dừng các vòng lặp tự chạy 24/24 để người dùng chủ động bấm lệnh, kiểm tra và can thiệp từng bước. Khi cần chuyển sang chạy tự động 24/24 chỉ cần bấm 1 nút chuyển đổi trên **PHẦN 6**.
+  - Xây dựng sẵn **Cổng Chờ 4 Bước (`AlphaModeAndTopicSkillBridge`)** để kết nối với **Bộ Skill Phân Tích Chủ Đề** sắp tới của bạn: `Bước 1: Phân tích DNA Chủ đề` $\rightarrow$ `Bước 2: Quyết định Làm hay Không (GO/NO-GO)` $\rightarrow$ `Bước 3: Tự sinh Công thức Kịch bản & Edit Video` $\rightarrow$ `Bước 4: Tự đóng gói thành 1 Mã Key Ngách mới hoàn toàn`.
 
 ### Phiên bản `v3.9.0` — Hệ Thống Mã Key Kích Hoạt Bản Quyền Cho Khách (`LicenseKeyManager`) + Kho Công Thức Đa Ngách "Mỗi Key 1 Cách Viết Kịch Bản & Edit Video Riêng" (`NicheRecipeRegistry`) + Cập Nhật Từ Xa Qua GitHub Không Cần Tải Lại Ứng Dụng (`OTAUpdaterManager`)
 - **[NÂNG CẤP 1] Hệ Thống Mã Key Kích Hoạt Bản Quyền Ký Số Bảo Mật `HMAC-SHA256` & Trình Tạo Mã Key Cho Khách (`LicenseKeyManager` — [`license_and_updater_manager.py`](file:///D:/YOUTUBE_ENTERPRISE_STUDIO/engine/license_and_updater_manager.py#L254-L485), [`DANH_SACH_MA_KEY_KICH_HOAT_CHO_KHACH.md`](file:///D:/YOUTUBE_ENTERPRISE_STUDIO/DANH_SACH_MA_KEY_KICH_HOAT_CHO_KHACH.md)):**

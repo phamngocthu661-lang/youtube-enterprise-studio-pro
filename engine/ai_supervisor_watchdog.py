@@ -924,7 +924,10 @@ class AISupervisorWatchdog:
         self.total_checks_run: int = 0
         self.total_issues_healed: int = 0
         self.last_check_time: str = "Chưa chạy"
-        self.last_supervisor_thought: str = "🛡️ AI Supervisor 24/7 đã khởi động — Đang liên tục theo dõi tiến độ & sức khỏe toàn bộ 10 kênh."
+        self.last_supervisor_thought: str = (
+            "🛠️ [CHẾ ĐỘ BẢN ALPHA — CAN THIỆP TRỰC TIẾP]: Đang tạm tắt chạy tự động 24/24 để bạn dễ kiểm soát và can thiệp thủ công. "
+            "Bấm 『🛠️ Quét & Khắc Phục Lỗi Ngay』 bất cứ lúc nào hoặc bật chế độ 24/24 khi sẵn sàng."
+        )
         self.incident_history: List[Dict[str, Any]] = []
         self._lock = threading.Lock()
 
@@ -1125,7 +1128,9 @@ class AISupervisorWatchdog:
         def _loop():
             while True:
                 try:
-                    if self.enabled:
+                    from engine.license_and_updater_manager import AlphaModeAndTopicSkillBridge
+                    cfg = AlphaModeAndTopicSkillBridge.get_runtime_mode_config()
+                    if self.enabled and cfg.get("run_24_7_autonomous_enabled", False):
                         self.inspect_and_heal_all_channels()
                 except Exception:
                     pass
